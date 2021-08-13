@@ -1,0 +1,195 @@
+<html>
+	<head>
+		<title>{{t}}</title>
+		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+	</head>
+<body>
+
+</body>
+</html>
+
+
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BetterMe Self-care</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <!-- href="/static/assets/style.css"-->
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/emoji.css')}}" >
+
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="{{ url_for('static',filename='assets/twemoji.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/emoji.js')}}"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/font-awesome.min.css')}}" >
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/bootstrap.min.css')}}" >
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/style.css')}}" >
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!--banner-->
+  <section id="banner" class="banner">
+    <div class="bg-color">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="../static/img/betterme.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+              <ul class="nav navbar-nav">
+{#                <li class="active"><a href="#banner">Home</a></li>#}
+                <li class="active"><a href="/">Home</a></li>
+                <li class=""><a href="#search_list">Search Results</a></li>
+                <li class=""><a href="/storage">Image/Audio Notes</a></li>
+                <li class=""><a href="/p">Predict Alzheimer's</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="banner-info">
+            <div class="banner-logo text-center">
+              <img src="../static/img/betterme.png" class="img-responsive">
+            </div>
+            <div class="banner-text text-center">
+              <h1 class="white">Healthcare at your desk!!</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <br>tempor incididunt ut labore et dolore magna aliqua.</p>
+              <a href="/logout" class="btn btn-appoint">Logout</a>
+            </div>
+            <div class="overlay-detail text-center">
+              <a href="#service"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ banner-->
+
+  <!--Search List-->
+  <section id="search_list" class="section-padding">
+    <div class="container">
+    <h2 class="ser-title">Todo search results</h2>
+    <hr class="botm-line">
+      {% if todos[0] %}
+      <div class="form_space">
+        <table class="search_results">
+            <tr><b>Result of the Search : ToDo List</b></tr>
+            <tr id="row">
+                <td class="status">Status</td>
+                <td class="name">Task Name</td>
+                <td class="desc">Task Description</td>
+                <td class="date">Date</td>
+                <td class="pr">Priority</td>
+                <td class="func1">Remove</td>
+                <td class="func2">Modify</td>
+            </tr>
+            {% for todo in todos %}
+            <tr class="datas">
+                <td><a href="./done?_id={{ todo['_id'] }}"><input type="image" src="static/images/{{todo['done']}}.png" alt="Submit ME"></a></td>
+                <td class="name">{{ todo["name"] }}</td>
+                <td class="desc">{{ todo["desc"] }}</td>
+                <td class="date">{{ todo["date"] }}</td>
+                <td class="pr">{{ todo["pr"] }}</td>
+                <td class="func1"><a href="./remove?_id={{ todo['_id'] }}"><button class="search_delete" type="submit">DELETE</button></a></td>
+                <td class="func1"><a href="./update?_id={{ todo['_id'] }}"><button class="search_update" type="submit">EDIT</button></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+        {% else %}
+          <div class="form_space">
+            <h4>No Result Found !!</h4>
+          </div>
+        {% endif %}
+        <a class="return_to_tasks" href="/">Return to TaskList</a>
+    </div>
+  </section>
+
+  <!--cta 2-->
+  <section id="cta-2" class="section-padding">
+    <div class="container">
+      <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="text-right-md col-md-4 col-sm-4">
+          <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a typek
+          <p class="text-right text-primary"><i>— Medilap Healthcare</i></p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+  <!--footer-->
+  <footer id="footer">
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">About Us</h4>
+            </div>
+            <div class="info-sec">
+              <p>Praesent convallis tortor et enim laoreet, vel consectetur purus latoque penatibus et dis parturient.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Quick Links</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="quick-info">
+                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
+                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Follow us</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="social-icon">
+                <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+                <li class="bgred"><i class="fa fa-google-plus"></i></li>
+                <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+                <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer-->
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="contactform/contactform.js"></script>
+
+</body>
+
+</html>
+
+

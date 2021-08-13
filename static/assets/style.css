@@ -1,0 +1,300 @@
+h1{
+/*	font-family:"Arial Black", Gadget, sans-serif;*/
+	font-family:"Times New Romans", Gadget, sans-serif;
+}
+body{
+	color:black;
+	background-color:white;
+	left-margin:10px;
+	right-margin:10px;
+}
+table{
+	width:95%;
+	border-collapse:collapse;
+	table-layout:fixed;
+}
+td
+{
+	border: rgba(224, 119, 70, 1) 0px solid;
+	word-wrap:break-word;
+}
+table#close{
+	table-layout: default;
+	border-collapse: separate;
+	border-spacing: 5px 5px;
+	border:none;
+	vertical-align:top;
+}
+table.none
+{
+	border:none;
+	vertical-align:top;
+}
+table.none td
+{
+	border: none;
+}
+tr.row td{
+	text-decoration: italic;
+}
+
+input[type=submit] {
+    width: 20em;  height: 2em;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+a.active {
+    background-color: #4CAF50;
+}
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #111;
+}
+
+
+.form_space{
+	border-radius: 8px;
+	background-color: lightgrey;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+.for_text{
+	width:90%;
+	margin-left: 5%;
+	height: 35px;
+	border-radius: 8px;
+	border: 0px solid;
+	padding-left: 10px;
+}
+.submit_buttons{
+	width: 150px;
+	height: 50px;
+	background-color: #3aba3a;
+	border: 0px solid;
+	border-radius: 10px;
+	margin-left: 25px;
+	color: white;
+}
+.notes{
+	width: 90%;
+	margin-left: 25px;
+	margin-bottom: 10px;
+	border: 0px solid;
+	border-radius: 8px;
+	padding-top: 10px;
+
+}
+/*Setting timer*/
+.timer_buttons{
+	width: 150px;
+	height: 50px;
+	border: 0px solid;
+	border-radius: 10px;
+	color: white;
+	margin-left: 25px;
+}
+#set{
+	background-color: #3aba3a;
+}
+#reset{
+	background-color: #37a8e6;
+}
+#hide{
+	background-color: #ed3434;
+}
+
+/*Seaching tasks*/
+#task_ref{
+	width: 100%;
+	height: 35px;
+	border-radius: 8px;
+	border: 0px solid;
+	padding: 10px;
+}
+#task_search{
+	width: 100%;
+	height: 35px;
+	border-radius: 8px;
+	border: 0px solid;
+	padding: 10px;
+}
+
+/*Searching results*/
+.status{
+	width: 5%;
+}
+.name{
+	width:15%;
+}
+.des{
+	width:40%;
+	padding:5px 5px 5px 5px;
+}
+.date{
+	width:10%;
+}
+.pr{
+	width:10%;
+}
+.func1{
+	width:10%;
+}
+.func2{
+	width:10%;
+}
+.search_results{
+	margin-top: 10px;
+	margin-left: 25px;
+}
+
+.search_delete{
+	width: 120px;
+	height: 40px;
+	background-color: #ed3434;
+	border: 0px solid;
+	border-radius: 10px;
+	color: white;
+}
+.search_update{
+	width: 120px;
+	height: 40px;
+	background-color: #37a8e6;
+	border: 0px solid;
+	border-radius: 10px;
+	color: white;
+}
+
+.remind{
+	width: 120px;
+	height: 40px;
+	background-color: #fcba03;
+	border: 0px solid;
+	border-radius: 10px;
+	color: white;
+}
+/*posted notes*/
+.list_notes{
+	margin-left: 25px;
+}
+.disp_notes{
+	width: 95%;
+	padding: 10px;
+	border: 0px solid;
+	border-radius: 8px;
+	height: 50px;
+}
+
+/*Uplaod image*/
+.choose_file{
+	width: 320px;
+	height: 50px;
+	border: 0px solid;
+	border-radius: 10px;
+	color: white;
+	margin-left: 25px;
+	margin-bottom: 20px;
+	background-color: #a0a2a0;
+	padding: 13px;
+}
+.image_submit{
+	width: 150px;
+	height: 50px;
+	background-color: #3aba3a;
+	border: 0px solid;
+	border-radius: 10px;
+	margin-left: 25px;
+	color: white;
+}
+.image_text{
+	width: 60%;
+	height: 33px;
+	border: 0px solid;
+	border-radius: 10px;
+	margin-left: 10px;
+}
+
+/*Upload audio*/
+#recordButton{
+	background-color: #3aba3a;
+}
+#pauseButton{
+	background-color: #37a8e6;
+}
+#stopButton{
+	background-color: #ed3434;
+}
+
+/*Uploaded files*/
+.uploaded_files{
+	background-color: #a0a2a0;
+	color: black;
+	margin: 10px;
+	border-radius: 8px;
+}
+
+/*Diagnose alzheimers*/
+.alz_input{
+	width: 50%;
+	margin-left: 25px;
+	height: 35px;
+	border: 0px solid;
+	border-radius: 8px;
+	padding-left: 10px;
+}
+
+/*Search results tasks*/
+.return_to_tasks{
+	padding: 10px;
+	background-color: #d5d3d3;
+	border-radius: 8px;
+}
+
+/*Update task*/
+.edit_field{
+	width: 80%;
+	height: 30px;
+	border: 0px solid;
+	border-radius: 8px;
+	padding-left: 10px;
+}
+.edit_desc{
+	width: 80%;
+	height: 50px;
+	border: 0px solid;
+	border-radius: 8px;
+	padding-left: 10px;
+}
+
+#bg-banner-todo{
+	background: url('../img/bg-banner-todo.jpg') no-repeat fixed;
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+}
+#bg-banner-audio{
+	background: url('../img/bg-banner-audio.jpg') no-repeat fixed;
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+}
+#bg-banner-diagnose{
+	background: url('../img/bg-banner-diagnose.jpg') no-repeat fixed;
+	background-size: cover;
+	min-height: 650px;
+	position: relative;
+}

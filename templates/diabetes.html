@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BetterMe - Diabetes</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/emoji.css')}}" >
+
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="{{ url_for('static',filename='assets/twemoji.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/emoji.js')}}"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/font-awesome.min.css')}}" >
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/bootstrap.min.css')}}" >
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/style.css')}}" >
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!--banner-->
+  <section id="banner" class="banner" style="background: url('../static/img/bg-banner.jpg') no-repeat fixed;">
+    <div class="bg-color">
+      <nav class="navbar navbar-default sticky-top">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="../static/img/betterme.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li class=""><a href="#reminder">Reminder</a></li>
+                <li class=""><a href="/storage">Image/Audio</a></li>
+                <li class=""><a href="/bmi">BMI</a></li>
+                <li class=""><a href="/recipe">Calories</a></li>
+                <li class=""><a href="/">Alzeihmer's</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="banner-info">
+            <div class="banner-logo text-center">
+              <img src="../static/img/betterme.png" class="img-responsive">
+            </div>
+            <div class="banner-text text-center">
+              <h1 class="white">Healthcare at your desk!!</h1>
+              <p>Empowering people to improve their lives <br>Groundwork of all happiness is health</p>
+              <a href="/logout" class="btn btn-appoint">Logout</a>
+            </div>
+            <div class="overlay-detail text-center">
+              <a href="#service"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ banner-->
+
+  <section id = "reminder" class="section-padding">
+    <div class = "container">
+      <h2 class="ser-title">Insulin Reminder</h2>
+      <hr class="botm-line">
+      <input id="alarmTime" type="datetime-local">
+      <button id="alarmButton" class="btn btn-success" onclick="setAlarm(this);">Set Alarm</button>
+
+      <div id="alarmOptions" style="display: none;">
+          <button class="btn btn-danger" onclick="snooze();">Snooze 5 minutes</button>
+          <button class="btn btn-primary" onclick="stopAlarm();">Stop Alarm</button>
+      </div>
+    </div>
+	<script type="text/javascript">
+
+		var alarmSound = new Audio();
+		alarmSound.src = '../static/alarm.mp3';
+		var alarmTimer;
+
+		function setAlarm(button) {
+			var ms = document.getElementById('alarmTime').valueAsNumber;
+			if(isNaN(ms)) {
+				alert('Invalid Date');
+				return;
+			}
+
+			var alarm = new Date(ms);
+			var alarmTime = new Date(alarm.getUTCFullYear(), alarm.getUTCMonth(), alarm.getUTCDate(),  alarm.getUTCHours(), alarm.getUTCMinutes(), alarm.getUTCSeconds());
+
+			var differenceInMs = alarmTime.getTime() - (new Date()).getTime();
+
+			if(differenceInMs < 0) {
+				alert('Specified time is already passed');
+				return;
+			}
+
+			alarmTimer = setTimeout(initAlarm, differenceInMs);
+			button.innerText = 'Cancel Alarm';
+			button.setAttribute('onclick', 'cancelAlarm(this);');
+		};
+
+		function cancelAlarm(button) {
+			clearTimeout(alarmTimer);
+			button.innerText = 'Set Alarm';
+			button.setAttribute('onclick', 'setAlarm(this);')
+		};
+
+		function initAlarm() {
+			alarmSound.play();
+			document.getElementById('alarmOptions').style.display = '';
+		};
+
+		function stopAlarm() {
+			alarmSound.pause();
+			alarmSound.currentTime = 0;
+			document.getElementById('alarmOptions').style.display = 'none';
+			cancelAlarm(document.getElementById('alarmButton'));
+		};
+
+		function snooze() {
+			stopAlarm();
+			alarmTimer = setTimeout(initAlarm, 300000); // 5 * 60 * 1000 = 5 Minutes
+		};
+
+	</script>
+  </section>
+
+  <!--About-->
+  <section id = "about" class="section-padding">
+    <div class = "container">
+      <h2 class="ser-title">About Diabetes</h2>
+      <hr class="botm-line">
+        <p>Diabetes is a condition that impairs the body’s ability to process blood glucose, otherwise known as blood sugar. Blood glucose is your main source of energy and comes from the food you eat. Insulin, a hormone made by the pancreas, helps glucose from food get into your cells to be used for energy. Sometimes your body doesn’t make enough—or any—insulin or doesn’t use insulin well. Glucose then stays in your blood and doesn’t reach your cells. Both genes and environmental factors play a role in triggering diabetes.</p>
+        <p>Over time, having too much glucose in your blood can cause health problems. Although diabetes has no cure, you can take steps to manage your diabetes and stay healthy.</p>
+        <p>As of 2015, 30.3 million people in the United States, or 9.4 percent of the population, had diabetes. More than 1 in 4 of them didn’t know they had the disease. Diabetes affects 1 in 4 people over the age of 65. About 90-95 percent of cases in adults are type 2 diabetes.</p>
+        <br>
+        <h4>Steps to embrace a lifestyle with diabetes include</h4>
+        <p>•	Eating a diet high in fresh, nutritious foods, including whole grains, fruits, vegetables, lean proteins, low-fat dairy, and healthy fat sources, such as nuts.</p>
+        <p>•	Avoiding high-sugar foods that provide empty calories, or calories that do not have other nutritional benefits, such as sweetened sodas, fried foods, and high-sugar desserts.</p>
+        <p>•	Refraining from drinking excessive amounts of alcohol or keeping intake to less than one drink a day for women or two drinks a day for men.</p>
+        <p>•	Engaging in at least 30 minutes exercise a day on at least 5 days of the week, such as of walking, aerobics, riding a bike, or swimming.</p>
+        <p>•	Recognizing signs of low blood sugar when exercising, including dizziness, confusion, weakness, and profuse sweating.</p>
+    </div>
+  </section>
+  <!--cta 2-->
+  <section id="cta-2" class="section-padding">
+    <div class="container">
+      <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="text-right-md col-md-4 col-sm-4">
+          <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          Higher standards of care everyday - The groundwork of all happiness is health
+          <p class="text-right text-primary"><i>— BetterMe Healthcare</i></p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+
+  <!--footer-->
+
+  <footer id="footer">
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">About Us</h4>
+            </div>
+            <div class="info-sec">
+              <p>Empowering people to improve their lives - Fitter, Healthier and Happier</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Quick Links</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="quick-info">
+                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
+                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Follow us</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="social-icon">
+                <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+                <li class="bgred"><i class="fa fa-google-plus"></i></li>
+                <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+                <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer-->
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>

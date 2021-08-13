@@ -1,0 +1,732 @@
+{% if user %}
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BetterMe Self-care</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <!-- href="/static/assets/style.css"-->
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/emoji.css')}}" >
+
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="{{ url_for('static',filename='assets/twemoji.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/emoji.js')}}"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/font-awesome.min.css')}}" >
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/bootstrap.min.css')}}" >
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/style.css')}}" >
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!--banner-->
+  <section id="bg-banner-todo" class="banner">
+    <div class="bg-color">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="../static/img/betterme.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#bg-banner-todo">Home</a></li>
+                <li class=""><a href="#todo">ToDoList</a></li>
+                <li class=""><a href="#notes">Notes</a></li>
+                <li class=""><a href="#services">Timer</a></li>
+                <li class=""><a href="/storage" >Image/Audio</a></li>
+                <li class=""><a href="/diabetes" >Insulin</a></li>
+                <li class=""><a href="/recipe" >Calories</a></li>
+                <li class=""><a href="/bmi" >BMI</a></li>
+                <li class=""><a href="/p">Alzheimer's</a></li>
+                <li class=""><a href="/pi">Diabetes's</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="banner-info">
+            <div class="banner-logo text-center">
+              <img src="../static/img/betterme.png" class="img-responsive">
+            </div>
+            <div class="banner-text text-center">
+              <h1 class="white">Healthcare at your desk!!</h1>
+              <p>Empowering people to improve their lives<br>Groundwork of all happiness is health</p>
+              <a href="/logout" class="btn btn-appoint">Logout</a>
+            </div>
+            <div class="overlay-detail text-center">
+              <a href="#service"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ banner-->
+
+  <!-- todo-->
+  <section id="todo" class="section-padding">
+    <div class="container">
+    <h2 class="ser-title">To Do List</h2>
+    <hr class="botm-line">
+        <ul>
+            <li><a href="/list" class="{{ a1 }}">ALL</a></li>
+            <li><a href="/" class="{{ a2 }}">Uncompleted</a></li>
+            <li><a href="/completed" class="{{ a3 }}">Completed</a></li>
+        </ul>
+        <hr>
+        {% if todos[0] %}
+        <div span="right">
+        <form class="form_space" action="/search"	method="GET" >
+            <table class="none" id="close">
+            <tr>
+            <td><big><b>Search Reference</b></big></td>
+            <td><select id = "task_ref" name="refer" required>
+                <option value="name">Task Name</option>
+                <option value="desc">Description</option>
+                <option value="date">Date</option>
+                <option value="pr">Priority</option>
+            </select></td>
+            <td><input id = "task_search" type="text" name="key" placeholder="Search Task" size="15" /></td>
+            <td><button class = "submit_buttons" type="submit">Search</button></td>
+            </tr>
+            </table>
+        </form>
+        </div>
+        <div class="form_space">
+            <table class="search_results">
+                <tr><b><big>To-Do LIST</big></b></tr>
+                <tr id="row">
+                    <th class="status">Status</th>
+                    <th class="name">Task Name</th>
+                    <th class="desc">Description Name</th>
+                    <th class="date">Date</th>
+                    <th class="pr">Priority</th>
+                <th class="func1">Remove</th>
+                <th class="func2">Modify</th>
+                <th class="func3">Remind</th>
+                </tr>
+            {% for todo in todos %}
+                <tr class="datas">
+                    <td><a href="./done?_id={{ todo['_id'] }}"><input type="image" src="static/img/{{todo['done']}}.png" alt="Submit ME"></a></td>
+                    <td class="name">{{ todo["name"] }}</td>
+                    <td class="desc">{{ todo["desc"] }}</td>
+                    <td class="date">{{ todo["date"] }}</td>
+                    <td class="pr">{{ todo["pr"] }}</td>
+                    <td class="func1"><a href="./remove?_id={{ todo['_id'] }}"><button class = "search_delete" type="submit">DELETE</button></a></td>
+                    <td class="func1"><a href="./update?_id={{ todo['_id'] }}"><button class = "search_update" type="submit">EDIT</button></a></td>
+                    <td class="func1"><a href="./remind?_id={{ todo['_id'] }}"><button class = "remind" type="submit">REMIND</button></a></td>
+                </tr>
+            {% endfor %}
+            </table>
+            {% else %}
+                <h4>No Tasks in the List !!</h4>
+            {% endif %}
+        </div>
+        <form class="form_space" action="/action" method="POST">
+        <table class="none">
+            <tr>
+                <td><b><big><label>Add a Task </label></big></b></td>
+            </tr>
+            <tr>
+            <td><input class="for_text" type="text" name="name" placeholder="Taskname" /></td>
+            <td><textarea class="for_text" name="desc" rows="1" cols="30" placeholder="Enter Description here..." required></textarea></td>
+            </tr>
+            <tr>
+            <td><input class="for_text" type="text" name="date" placeholder="Date" /></td>
+            <td><input class="for_text" type="text" name="pr" placeholder="Priority" /></td>
+            </tr>
+            <tr>
+            <td><button class="submit_buttons" type="submit"> Create </button></td>
+            </tr>
+            </table>
+        </form>
+    </div>
+  </section>
+
+  <section id="notes" class="section-padding">
+    <div class="container">
+        <h2 class="ser-title">Make Notes</h2>
+        <hr class="botm-line">
+        <form class="form_space" action="/notestore" method="POST">
+          <table>
+              <tr>
+                      <textarea class="notes" name="note" rows="5" cols="50">
+                        Enter notes here
+                        </textarea>
+              </tr>
+              <tr>
+                  <button class="submit_buttons" type="submit"> Create </button>
+              </tr>
+          </table>
+        </form>
+        {% for note in notes %}
+            <div class="form_space">
+            <table class="list_notes">
+                <tr>
+                    <td><textarea class="disp_notes" rows=5 cols=50>{{note['note']}}</textarea></td>
+                    <td><a href="./removen?_id={{ note['_id'] }}"><button class ="search_delete" type="submit">DELETE</button></a></td>
+                    <td><a href="./remindnote?_id={{ note['_id'] }}"><button class ="remind" type="submit">REMIND</button></a></td>
+                </tr>
+            </table>
+            </div>
+        {% endfor %}
+        </div>
+
+  </section>
+  <section id="services" class="section-padding">
+    <div class="container">
+        <h2 class="ser-title">Set Reminder</h2>
+        <hr class="botm-line">
+        <div id="timer" onclick="toggleControls()"></div>
+        <div class="form_space" id="control">
+            <button id="set" class="timer_buttons" onclick="setTimer()">Set timer</button>
+            <button id="reset" class="timer_buttons" onclick="resetTimer()">Reset</button>
+            <button id="hide" class="timer_buttons" onclick="toggleControls()">Hide</button>
+        </div>
+    </div>
+  </section>
+
+
+  <!--cta 2-->
+  <section id="cta-2" class="section-padding">
+    <div class="container">
+      <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="text-right-md col-md-4 col-sm-4">
+          <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          We are the Hospital of tomorrow, Today. BetterMe has helped over a thousand patients in the past six months, to get better assistance, and aid diabetic and Alzheimer patients in tracking their conditions and hence improving lives.
+          <p class="text-right text-primary"><i>— BetterMe Healthcare</i></p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+  <!--footer-->
+  <footer id="footer">
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">About Us</h4>
+            </div>
+            <div class="info-sec">
+              <p>We help people get better assistance, and aid diabetic and Alzheimer patients in tracking their conditions and hence improving lives.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Quick Links</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="quick-info">
+                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
+                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Follow us</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="social-icon">
+                <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+                <li class="bgred"><i class="fa fa-google-plus"></i></li>
+                <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+                <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer-->
+
+  <script src="{{ url_for('static',filename='js/jquery.min.js')}}"></script>
+  <script src="static/js/jquery.easing.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/custom.js"></script>
+  <script src="static/contactform/contactform.js"></script>
+
+</body>
+
+</html>
+
+    <script type="text/javascript">
+   var endTime = (+localStorage.endTime || 0)
+    function setTimer() {
+        var duration = +prompt('How long to set the timer (minutes)', '15')
+        endTime = localStorage.endTime = duration * 60e3 + Date.now()
+        update()
+    }
+    function resetTimer() {
+        endTime = 0
+    }
+    function toggleControls() {
+        document.body.classList.toggle('controls-hidden')
+    }
+    function update() {
+        var timeLeft = endTime - Date.now()
+        if (timeLeft < 0) {
+            setText('--:--')
+        } else {
+            var minutes = Math.floor(timeLeft / 60e3)
+            var seconds = Math.floor(timeLeft / 1e3) % 60
+            setText(`${minutes}:${seconds.toString(10).padStart(2, '0')}`)
+        }
+    }
+    function setText(text) {
+        document.getElementById('timer').textContent = text
+    }
+    setInterval(update, 200)
+    </script>
+
+
+{% else %}
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BetterMe Self-care</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/font-awesome.min.css')}}" >
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/bootstrap.min.css')}}" >
+  <link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='css/style.css')}}" >
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+  <!--banner-->
+  <section id="banner" class="banner">
+    <div class="bg-color">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="../static/img/betterme.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#banner">Home</a></li>
+                <li class=""><a href="#service">Services</a></li>
+                <li class=""><a href="#about">About</a></li>
+                <li class=""><a href="#creator-team">Creators</a></li>
+                <li class=""><a href="#testimonial">Testimonial</a></li>
+                <li class=""><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="row">
+          <div class="banner-info">
+            <div class="banner-logo text-center">
+              <img src="../static/img/betterme.png" class="img-responsive">
+            </div>
+            <div class="banner-text text-center">
+              <h1 class="white">Healthcare at your desk!!</h1>
+              <p>Empowering people to improve their lives<br>Groundwork of all happiness is health</p>
+              <a href="#contact" class="btn btn-appoint">Make an Appointment.</a>
+              <a href="/login" class="btn btn-appoint">Login</a>
+            </div>
+            <div class="overlay-detail text-center">
+              <a href="#service"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ banner-->
+  <!--service-->
+  <section id="service" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <h2 class="ser-title">Our Services</h2>
+          <hr class="botm-line">
+          <p>Helping people live healthier lives.
+            We are dedicated to helping people live healthier lives and making the health system work better for everyone. The Hospital of the Future, Today.
+            Empowering Health is our commitment to addressing important issues that impact people’s health.
+            Empowering Health is our commitment to find solutions to the complex challenges within the health care system. We're focused on meeting this goal by expanding access to care and addressing the social determinants of health.
+            Empowering Health helps us make a social impact by improving the health and wellness of those who may often be overlooked.
+            Not just better healthcare, but a better healthcare experience.
+            Healthier, together.
+          </p>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-stethoscope"></i>
+            </div>
+            <div class="icon-info">
+              <h4>24 Hour Services</h4>
+              <p>We are here for you 24x7. Committed to caring and facilitating good health. We uphold the spirit to care. Treatment and assistance are just a click away.</p>
+            </div>
+          </div>
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-ambulance"></i>
+            </div>
+            <div class="icon-info">
+              <h4>Track Vitals</h4>
+              <p>BetterMe is the one stop destination for all your medical records. Keep a check on your vitals and blood glucose levels. Analyze trends and chart your healthy lifestyle.  </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-user-md"></i>
+            </div>
+            <div class="icon-info">
+              <h4>Preemptive Diagnosis</h4>
+              <p>BetterMe’s smart system provides an early heads-up for underlying ailments like Diabetes and Alzheimer’s disease.</p>
+            </div>
+          </div>
+          <div class="service-info">
+            <div class="icon">
+              <i class="fa fa-medkit"></i>
+            </div>
+            <div class="icon-info">
+              <h4>Stay Organized</h4>
+              <p>Stay one step ahead of your schedule. Set reminders, create voice-notes and never lose track of your daily activities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+  <!--about-->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="section-title">
+            <h2 class="head-title lg-line">The BetterMe <br>Ultimate Dream</h2>
+            <hr class="botm-line">
+            <p class="sec-para">BetterMe is the Hospital of the Future, Today. We aim to provide the Highest Quality Healthcare to each individual at the ease of a click. We aspire to become your first choice to come to in times of need, an E-Service hospital you trust to care for those you love.
+                The Power to Heal.
+            </p>
+            <a href="" style="color: #0cb8b6; padding-top:10px;">Know more..</a>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-8 col-xs-12">
+          <div style="visibility: visible;" class="col-sm-9 more-features-box">
+            <div class="more-features-box-text">
+              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
+              <div class="more-features-box-text-description">
+                <h3>Privacy</h3>
+                <p>At BetterMe, we are committed to protecting the privacy of your medical information. We believe you are entitled to understand how your medical information is used at BetterMe. We may disclose your health information to family members or friends, guardians or personal representatives who are involved with your medical care.</p>
+              </div>
+            </div>
+            <div class="more-features-box-text">
+              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
+              <div class="more-features-box-text-description">
+                <h3>24x7 Services</h3>
+                <p>We are here for you 24x7. Committed to caring and facilitating good health. We uphold the spirit to care. Treatment and assistance are just a click away.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ about-->
+  <!--doctor team-->
+  <section id="creator-team" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="ser-title">Meet Our Creators!</h2>
+          <hr class="botm-line">
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="https://media-exp1.licdn.com/dms/image/C4E03AQHiDDyqZ0JWiQ/profile-displayphoto-shrink_400_400/0/1590384751919?e=1626912000&v=beta&t=KPwEM2rtEjc6xOhis1FBjWStLyT-6cWvSjSPtyxWZ2s" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Akash Ratha</h3>
+              <p>Creator</p>
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHyXO2IqnD0_g/profile-displayphoto-shrink_400_400/0/1618590281997?e=1626912000&v=beta&t=ipLzvx4D9rOAESIxEHHnwKU0hY_WnYZ4FdrCEy8rAYs" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Amrit Satpathy</h3>
+              <p>Creator</p>
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHI14BGhbkujw/profile-displayphoto-shrink_400_400/0/1601604549169?e=1626912000&v=beta&t=emAuGNdPMYYidmwJARhupjQVe6SsTFVUG6181Zyu7wE" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Siddhant Singh</h3>
+              <p>Creator</p>
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="https://media-exp1.licdn.com/dms/image/C4E03AQEybxhRGz-M8w/profile-displayphoto-shrink_400_400/0/1609582781292?e=1626912000&v=beta&t=YzaLiX13Qsp7--cy7wF1VZinfFM2RLEiRRV2KPX6mcI" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Devanshi Varshney</h3>
+              <p>Creator</p>
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="../static/img/arjun.jpeg" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Arjun Yadav</h3>
+              <p>Creator</p>
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+          <div class="thumbnail">
+            <img src="../static/img/anand.jpeg" alt="..." class="team-img">
+            <div class="caption">
+              <h3>Anand Bhalotia</h3>
+              <p>Creator</p>
+              <ul class="list-inline">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ doctor team-->
+  <!--testimonial-->
+  <section id="testimonial" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="ser-title">see what patients are saying?</h2>
+          <hr class="botm-line">
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="testi-details">
+            <!-- Paragraph -->
+            <p>Amazing App, has helped me keep track of my blood Sugar levels regularly, much has changed since I started counting my calories, I feel fitter and more energetic. Sincerely recommended!</p>
+          </div>
+          <div class="testi-info">
+            <!-- User Image -->
+            <a href="#"><img src="static/img/thumb.png" alt="" class="img-responsive"></a>
+            <!-- User Name -->
+            <h3>Suresh<span>Chandra</span></h3>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="testi-details">
+            <!-- Paragraph -->
+            <p>BetterMe has helped me keep track of my daily routine of medicines and attain my fitness goals.</p>
+          </div>
+          <div class="testi-info">
+            <!-- User Image -->
+            <a href="#"><img src="static/img/thumb.png" alt="" class="img-responsive"></a>
+            <!-- User Name -->
+            <h3>Mahesh<span>Rajan</span></h3>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <div class="testi-details">
+            <!-- Paragraph -->
+            <p>Thanks to BetterMe, I use it regularly to make voice notes, it has helped me and my husband manage our Alzheimers truly effectively. Kudos.</p>
+          </div>
+          <div class="testi-info">
+            <!-- User Image -->
+            <a href="#"><img src="static/img/thumb.png" alt="" class="img-responsive"></a>
+            <!-- User Name -->
+            <h3>Rashmi<span>Purohit</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ testimonial-->
+  <!--cta 2-->
+  <section id="cta-2" class="section-padding">
+    <div class="container">
+      <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="text-right-md col-md-4 col-sm-4">
+          <h2 class="section-title white lg-line">« A few words<br> about us »</h2>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          We are the Hospital of tomorrow, Today. BetterMe has helped over a thousand patients in the past six months, to get better assistance, and aid diabetic and Alzheimer patients in tracking their conditions and hence improving lives.
+          <p class="text-right text-primary"><i>— BetterMe Healthcare</i></p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </section>
+  <!--cta-->
+  <!--contact-->
+  <section id="contact" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="ser-title">Contact us</h2>
+          <hr class="botm-line">
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <h3>Contact Info</h3>
+          <div class="space"></div>
+          <p><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i>221b Baker Street<br> Mumbai, 400706</p>
+          <div class="space"></div>
+          <p><i class="fa fa-envelope-o fa-fw pull-left fa-2x"></i>info@betterme.com</p>
+          <div class="space"></div>
+          <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>+1 800 123 1234</p>
+        </div>
+        <div class="col-md-8 col-sm-8 marb20">
+          <div class="contact-info">
+            <h3 class="cnt-ttl">Having Any Query! Or Book an appointment</h3>
+            <div class="space"></div>
+            <div id="sendmessage">Your message has been sent. Thank you!</div>
+            <div id="errormessage"></div>
+            <form action="" method="post" role="form" class="contactForm">
+              <div class="form-group">
+                <input type="text" name="name" class="form-control br-radius-zero" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control br-radius-zero" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control br-radius-zero" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control br-radius-zero" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <div class="validation"></div>
+              </div>
+
+              <div class="form-action">
+                <button type="submit" class="btn btn-form">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ contact-->
+  <!--footer-->
+  <footer id="footer">
+    <div class="top-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">About Us</h4>
+            </div>
+            <div class="info-sec">
+              <p>We help people get better assistance, and aid diabetic and Alzheimer patients in tracking their conditions and hence improving lives.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Quick Links</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="quick-info">
+                <li><a href="#index"><i class="fa fa-circle"></i>Home</a></li>
+                <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
+                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 marb20">
+            <div class="ftr-tle">
+              <h4 class="white no-padding">Follow us</h4>
+            </div>
+            <div class="info-sec">
+              <ul class="social-icon">
+                <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+                <li class="bgred"><i class="fa fa-google-plus"></i></li>
+                <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+                <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ footer-->
+
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/jquery.easing.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/custom.js"></script>
+  <script src="static/contactform/contactform.js"></script>
+
+</body>
+
+</html>
+
+{% endif %}
