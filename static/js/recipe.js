@@ -2,8 +2,8 @@ const searchForm = document.querySelector('form');
 const searchResultDiv = document.querySelector('.search-result');
 const container = document.querySelector('.container');
 let searchQuery = '';
-const APP_ID = "934989df";
-const APP_key = "3c3d06fe7dcb3ec32320a66c71a49414";
+const APP_ID = "Enter ID";
+const APP_key = "Enter Key";
 // console.log(container)
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
